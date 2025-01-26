@@ -27,7 +27,7 @@ public class TwitterToKafkaServiceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("TwitterToKafkaServiceApplication started");
-        log.info("TwitterToKafkaServiceConfigData: {}", twitterToKafkaServiceConfigData);
+        log.info("TwitterToKafkaServiceConfigData: {}", twitterToKafkaServiceConfigData.twitterKeywords());
         log.info("{}", twitterToKafkaServiceConfigData.welcomeMessage());
     }
 }
