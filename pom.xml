@@ -14,8 +14,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>microservices-demo</name>
     <description>Demo of event driven microservices</description>
+
     <modules>
         <module>twitter-to-kafka-service</module>
+        <module>app-config-data</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -52,6 +54,13 @@
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- local -->
+            <dependency>
+                <groupId>com.microservices.demo</groupId>
+                <artifactId>app-config-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- local -->
         </dependencies>
     </dependencyManagement>
 
