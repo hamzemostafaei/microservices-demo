@@ -51,7 +51,9 @@ public class MockKafkaStreamRunner implements IStreamRunner {
             "malesuada",
             "libero"
     };
+
     private static final Random RANDOM = new Random();
+
     private static final String tweetAsRawJson = "{" +
             "\"created_at\":\"{0}\"," +
             "\"id\":\"{1}\"," +
@@ -64,7 +66,7 @@ public class MockKafkaStreamRunner implements IStreamRunner {
     private final TwitterKafkaStatusListener twitterKafkaStatusListener;
 
     @Override
-    public void start() throws TwitterException {
+    public void start() {
         String[] keywords = twitterToKafkaServiceConfigData.twitterKeywords().toArray(new String[0]);
         Integer minTweetLength = twitterToKafkaServiceConfigData.mockMinTweetLength();
         Integer maxTweetLength = twitterToKafkaServiceConfigData.mockMaxTweetLength();
@@ -80,6 +82,7 @@ public class MockKafkaStreamRunner implements IStreamRunner {
         try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
             executorService.submit(() -> {
                 try {
+                    //noinspection InfiniteLoopStatement
                     while (true) {
                         String formattedTweetAsRawJson = getFormattedTweet(keywords, minTweetLength, maxTweetLength);
                         Status status = TwitterObjectFactory.createStatus(formattedTweetAsRawJson);
