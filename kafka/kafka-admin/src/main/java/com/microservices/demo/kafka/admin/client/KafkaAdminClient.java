@@ -37,15 +37,23 @@ public class KafkaAdminClient {
         CreateTopicsResult createTopicsResult;
         try {
             createTopicsResult = retryTemplate.execute(this::doCreateTopics);
-            log.info("Create topic result {}", createTopicsResult.values().values());
+            log.info("Topic creation result: {}", createTopicsResult.values().values());
         } catch (Throwable t) {
             throw new KafkaClientException("Reached max number of retry for creating kafka topic(s)!", t);
         }
         checkTopicsCreated();
+
+        log.debug("Topic creation successful");
     }
 
     public void checkTopicsCreated() {
+
+        log.debug("Check topics created");
+
         Collection<TopicListing> topics = getTopics();
+
+        log.debug("Available topics: {}", topics);
+
         int retryCount = 1;
         Integer maxRetry = retryConfigData.maxAttempts();
         int multiplier = retryConfigData.multiplier().intValue();
@@ -61,6 +69,9 @@ public class KafkaAdminClient {
     }
 
     public void checkSchemaRegistry() {
+
+        log.debug("Check schema registry");
+
         int retryCount = 1;
         Integer maxRetry = retryConfigData.maxAttempts();
         int multiplier = retryConfigData.multiplier().intValue();
@@ -73,12 +84,14 @@ public class KafkaAdminClient {
     }
 
     private HttpStatusCode getSchemaRegistryStatus() {
+
+        log.debug("Get schema registry status");
+
         try {
             return webClient
                     .method(HttpMethod.GET)
                     .uri(kafkaConfigData.schemaRegistryUrl())
-                    .retrieve()
-                    .bodyToMono(ClientResponse.class)
+                    .exchange()
                     .map(ClientResponse::statusCode)
                     .block();
         } catch (Exception e) {
@@ -104,7 +117,8 @@ public class KafkaAdminClient {
         if (topics == null) {
             return false;
         }
-        return topics.stream().anyMatch(topic -> topic.name().equals(topicName));
+        return topics.stream()
+                .anyMatch(topic -> topic.name().equals(topicName));
     }
 
     private Collection<TopicListing> getTopics() {
@@ -122,8 +136,9 @@ public class KafkaAdminClient {
 
         Collection<TopicListing> topics = adminClient.listTopics().listings().get();
         if (topics != null) {
-            topics.forEach(topic -> log.debug("Topic with name {}", topic.name()));
+            topics.forEach(topic -> log.debug("Got topic with name [{}]", topic.name()));
         }
+
         return topics;
 
     }
@@ -137,7 +152,8 @@ public class KafkaAdminClient {
                                 topic.trim(),
                                 kafkaConfigData.numOfPartitions(),
                                 kafkaConfigData.replicationFactor())
-                ).collect(Collectors.toList());
+                )
+                .collect(Collectors.toList());
         return adminClient.createTopics(kafkaTopics);
 
     }
