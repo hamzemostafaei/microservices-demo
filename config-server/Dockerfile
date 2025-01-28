@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /workspace
 
 # Copy the JAR file into the container
-COPY target/twitter-to-kafka-service-0.0.1-SNAPSHOT.jar app.jar
+COPY target/config-server-0.0.1-SNAPSHOT.jar app.jar
 
 # Run the application
 CMD ["java", "-jar", "app.jar"]

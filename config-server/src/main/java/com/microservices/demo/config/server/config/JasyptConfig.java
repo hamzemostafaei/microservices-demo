@@ -1,4 +1,4 @@
-package com.microservices.demo.config.server;
+package com.microservices.demo.config.server.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
