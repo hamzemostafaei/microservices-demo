@@ -7,10 +7,14 @@ spring:
         git:
           uri: https://github.com/hamzemostafaei/spring-cloud-config-server-repository
           clone-on-start: true
-          username: hamzemostafaei
-          password: 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
+          username: ENC(lD1MOsBjl2cS63hh2O2u0sLnbbR9kaVq89x4FEEV5uXx5Kg8BtucfQnrq9AQcu9o)
+          password: ENC(8SewjYATUbujK9OmJG6E6P/5pMMKDM38DHw3vSC85Q2mxaWtOeGWcZvFvaV7JJFwpZjfP0ijpZdJCZuNQHiMW19KiZ47mOFI8BdECADTkI8=)
           default-label: master
   security:
     user:
       name: spring_cloud_user
-      password: $pringCloudP@ssword!
+      password: ENC(p6xdCUbxQDUMc+UQxXNh/vHZU69483nZRFSYkf+vohUUJZtf2PMcOCGdx3SEPh9f15qGDPCiCZNAEpv2qIQvoQ==)
+
+jasypt:
+  encryptor:
+    bean: "propertiesEncryptor"
