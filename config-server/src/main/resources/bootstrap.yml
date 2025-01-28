@@ -10,4 +10,7 @@ spring:
           username: hamzemostafaei
           password: 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
           default-label: master
-    fail-fast: true
+  security:
+    user:
+      name: spring_cloud_user
+      password: $pringCloudP@ssword!
