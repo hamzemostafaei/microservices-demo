@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
@@ -23,12 +23,15 @@ public class TwitterElasticsearchRepositoryIndexClient implements IElasticIndexC
     public List<String> save(List<TwitterIndexModel> documents) {
         Iterable<TwitterIndexModel> indexedDocuments = indexRepository.saveAll(documents);
 
-        List<String> documentIds = new ArrayList<>();
-        indexedDocuments.forEach(indexedDocument -> {
-            documentIds.add(indexedDocument.getId());
-        });
+        List<String> documentIds = StreamSupport
+                .stream(indexedDocuments.spliterator(), false)
+                .map(TwitterIndexModel::getId)
+                .toList();
 
-        log.info("Documents indexed successfully with type: {} and ids: {}", TwitterIndexModel.class.getName(), documentIds);
+        log.info("Successfully indexed [{}] documents of type [{}] with IDs: [{}]",
+                documentIds.size(),
+                TwitterIndexModel.class.getSimpleName(),
+                documentIds);
 
         return documentIds;
     }
