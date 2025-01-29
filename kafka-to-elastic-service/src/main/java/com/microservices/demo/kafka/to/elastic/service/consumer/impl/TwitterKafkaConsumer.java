@@ -7,20 +7,32 @@ import com.microservices.demo.kafka.to.elastic.service.consumer.IKafkaConsumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service("TwitterKafkaConsumer")
 public class TwitterKafkaConsumer implements IKafkaConsumer<Long, TwitterAvroModel> {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     private final KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
     private final KafkaAdminClient kafkaAdminClient;
     private final KafkaConfigData kafkaConfigData;
+
+    @EventListener
+    public void onAppStarted(ApplicationStartedEvent event) {
+        kafkaAdminClient.checkTopicsCreated();
+        log.info("Topics with name [{}] is ready for operation.", kafkaConfigData.topicNamesToCreate());
+        Objects.requireNonNull(kafkaListenerEndpointRegistry.getListenerContainer("twitterTopListener")).start();
+    }
 
     @Override
     @KafkaListener(id = "twitterTopListener", topics = "${kafka-config.topic-name}")
