@@ -1,0 +1,1 @@
+docker build -t com.microservices.demo/config.server:0.0.1-SNAPSHOT .
