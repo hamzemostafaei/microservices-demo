@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: elastic-query-service
+  profiles:
+    active: elastic_query
+  cloud:
+    config:
+      name: elastic-query-service,config-client
+      uri: http://localhost:8888
+      username: spring_cloud_user
+      password: ENC(fj7tX8jQL+DtsCP7+9ufejbX0HRbzOyFl8dcqkUazX6uSC3bLmGe/9PT1BtelETB7KAVZih4PVFbmAs3HSQCtQ==)
+
+jasypt:
+  encryptor:
+    bean: "propertiesEncryptor"
