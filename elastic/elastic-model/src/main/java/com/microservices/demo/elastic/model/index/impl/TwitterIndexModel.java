@@ -3,8 +3,10 @@ package com.microservices.demo.elastic.model.index.impl;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.microservices.demo.elastic.model.index.IIndexModel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -13,7 +15,10 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@Document(indexName = "#{elasticConfigData.indexName}")
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(indexName = "twitter-index")
+//@Document(indexName = "#{elasticConfigData.indexName}")
 public class TwitterIndexModel implements IIndexModel {
 
     @JsonProperty

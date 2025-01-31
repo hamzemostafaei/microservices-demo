@@ -1,41 +1,32 @@
 package com.microservices.demo.elastic.config;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.microservices.demo.config.ElasticConfigData;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
-import org.springframework.data.elasticsearch.support.HttpHeaders;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableElasticsearchRepositories(basePackages = "com.microservices.demo.elastic")
-public class ElasticsearchConfig extends ElasticsearchConfiguration {
+public class ElasticsearchConfig {
 
     private final ElasticConfigData elasticConfigData;
 
     @Bean
-    @Override
-    public ClientConfiguration clientConfiguration() {
+    public ElasticsearchClient elasticsearchClient() {
 
-        UriComponents serverUri = UriComponentsBuilder
-                .fromUriString(elasticConfigData.connectionUrl())
+        RestClient restClient = RestClient
+                .builder(HttpHost.create(elasticConfigData.connectionUrl()))
                 .build();
 
-        return ClientConfiguration.builder()
-                .connectedTo(serverUri.getHost() + ":" + serverUri.getPort())
-                .withConnectTimeout(elasticConfigData.connectionTimeoutMs())
-                .withSocketTimeout(elasticConfigData.socketTimeoutMs())
-                .withHeaders(() -> {
-                    HttpHeaders headers = new HttpHeaders();
-                    headers.add("Accept", "application/vnd.elasticsearch+json;compatible-with=8");
-                    headers.add("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8");
-                    return headers;
-                })
-                .build();
+        RestClientTransport restClientTransport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+
+        return new ElasticsearchClient(restClientTransport);
     }
 }

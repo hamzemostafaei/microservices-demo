@@ -42,7 +42,7 @@
         <spring-cloud.version>4.1.2</spring-cloud.version>
         <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version>
         <jasypt.version>3.0.5</jasypt.version>
-        <elasticsearch.version>8.17.1</elasticsearch.version>
+        <elasticsearch.version>8.15.5</elasticsearch.version>
     </properties>
 
     <repositories>
@@ -128,13 +128,8 @@
                 <version>${spring-retry.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
-                <version>${elasticsearch.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.elasticsearch.client</groupId>
-                <artifactId>elasticsearch-rest-client</artifactId>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
                 <version>${elasticsearch.version}</version>
             </dependency>
 
@@ -197,6 +192,16 @@
             <dependency>
                 <groupId>com.microservices.demo</groupId>
                 <artifactId>elastic-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.microservices.demo</groupId>
+                <artifactId>elastic-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.microservices.demo</groupId>
+                <artifactId>elastic-index-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- local -->
