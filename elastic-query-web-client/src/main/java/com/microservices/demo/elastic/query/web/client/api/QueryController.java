@@ -4,6 +4,7 @@ import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClie
 import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClientResponseModel;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,8 @@ import java.util.List;
 public class QueryController {
 
     @GetMapping("")
-    public String index() {
+    public String index(Model model, Authentication authentication) {
+        model.addAttribute("authentication", authentication);
         return "index";
     }
 
@@ -27,9 +29,9 @@ public class QueryController {
     }
 
     @GetMapping("/home")
-    public String home(Model model) {
-        model.addAttribute("elasticQueryWebClientRequestModel",
-                ElasticQueryWebClientRequestModel.builder().build());
+    public String home(Model model, Authentication authentication) {
+        model.addAttribute("elasticQueryWebClientRequestModel",ElasticQueryWebClientRequestModel.builder().build());
+        model.addAttribute("authentication", authentication);
         return "home";
     }
 
