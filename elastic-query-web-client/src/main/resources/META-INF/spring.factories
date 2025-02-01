@@ -1,0 +1,1 @@
+org.springframework.cloud.bootstrap.BootstrapConfiguration= com.microservices.demo.elastic.query.web.client.config.JasyptConfig

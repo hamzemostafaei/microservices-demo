@@ -26,6 +26,7 @@
         <module>elastic/elastic-config</module>
         <module>elastic/elastic-index-client</module>
         <module>elastic-query-service</module>
+        <module>elastic-query-web-client</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -44,6 +45,7 @@
         <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version>
         <jasypt.version>3.0.5</jasypt.version>
         <elasticsearch.version>8.15.5</elasticsearch.version>
+        <thymeleaf-extras.version>3.1.2.RELEASE</thymeleaf-extras.version>
     </properties>
 
     <repositories>
@@ -78,6 +80,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
@@ -137,6 +144,11 @@
                 <groupId>co.elastic.clients</groupId>
                 <artifactId>elasticsearch-java</artifactId>
                 <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+                <version>${thymeleaf-extras.version}</version>
             </dependency>
 
             <!--spring cloud -->
