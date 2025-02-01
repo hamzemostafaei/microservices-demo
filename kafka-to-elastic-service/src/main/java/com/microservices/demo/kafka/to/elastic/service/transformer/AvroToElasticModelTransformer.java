@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -19,7 +20,7 @@ public class AvroToElasticModelTransformer {
                         .userId(avroModel.getUserId())
                         .id(String.valueOf(avroModel.getId()))
                         .text(avroModel.getText())
-                        .createdAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(avroModel.getCreatedAt()), ZoneId.systemDefault()))
+                        .createdAt(new Date(avroModel.getCreatedAt()))
                         .build()
                 ).toList();
     }

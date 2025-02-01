@@ -205,6 +205,11 @@
                 <artifactId>elastic-index-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.microservices.demo</groupId>
+                <artifactId>elastic-query-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- local -->
 
             <dependency>

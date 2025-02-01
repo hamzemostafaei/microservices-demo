@@ -7,18 +7,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "twitter-index")
-//@Document(indexName = "#{elasticConfigData.indexName}")
 public class TwitterIndexModel implements IIndexModel {
 
     @JsonProperty
@@ -30,9 +31,9 @@ public class TwitterIndexModel implements IIndexModel {
     @JsonProperty
     private String text;
 
-    @Field(type = FieldType.Date, pattern = "uuuu-MM-dd'T'HH:mm:ssZZ")
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "uuuu-MM-dd'T'HH:mm:ssZZ")
+    @Field(type = FieldType.Date, format = DateFormat.date_optional_time)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd['T'HH:mm:ss.SSS'Z']", timezone = "UTC")
     @JsonProperty
-    protected LocalDateTime createdAt;
+    private LocalDate createdAt;
 
 }
