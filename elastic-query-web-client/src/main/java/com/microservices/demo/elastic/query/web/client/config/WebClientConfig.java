@@ -25,8 +25,8 @@ public class WebClientConfig {
     private final ElasticQueryWebClientConfigData webClientConfigData;
     private final UserConfigData userConfigData;
 
-    @Bean
     @LoadBalanced
+    @Bean("webClientBuilder")
     WebClient.Builder webclientBuilder() {
         return WebClient.builder()
                 .filter(ExchangeFilterFunctions

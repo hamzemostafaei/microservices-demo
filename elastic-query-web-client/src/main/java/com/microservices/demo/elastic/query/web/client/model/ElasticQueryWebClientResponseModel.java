@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -16,5 +16,5 @@ public class ElasticQueryWebClientResponseModel {
     private String id;
     private Long userId;
     private String text;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 }
