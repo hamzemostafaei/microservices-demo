@@ -1,4 +1,4 @@
-package com.microservices.demo.elastic.query.service.security;
+package com.microservices.demo.elastic.query.service.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;

@@ -4,4 +4,10 @@
     <property name="APP_NAME" value="elastic-query-service"/>
 
     <include resource="logback-common.xml"/>
+
+    <logger name="org.springframework.security" level="info" additivity="false">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
 </configuration>
