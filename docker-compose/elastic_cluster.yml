@@ -3,6 +3,7 @@ services:
   elastic-1:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
     hostname: elastic-1
+    container_name: elastic-1
     environment:
       - node.name=elastic-1
       - cluster.name=es-twitter-cluster
@@ -24,6 +25,8 @@ services:
       - ${GLOBAL_NETWORK:-elastic}
   elastic-2:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
+    hostname: elastic-2
+    container_name: elastic-2
     environment:
       - node.name=elastic-2
       - cluster.name=es-twitter-cluster
@@ -42,6 +45,8 @@ services:
       - ${GLOBAL_NETWORK:-elastic}
   elastic-3:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
+    hostname: elastic-3
+    container_name: elastic-3
     environment:
       - node.name=elastic-3
       - cluster.name=es-twitter-cluster

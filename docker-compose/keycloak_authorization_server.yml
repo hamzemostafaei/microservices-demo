@@ -2,7 +2,8 @@ version: '3.8'
 services:
   keycloak-authorization-server:
     image: quay.io/keycloak/keycloak-oracle:${KEYCLOAK_VERSION:-latest}
-    hostname: keycloak-server
+    hostname: keycloak
+    container_name: keycloak
     environment:
       - "KC_HOSTNAME=localhost"
       - "KC_PROXY=edge"
