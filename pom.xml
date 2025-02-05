@@ -46,6 +46,7 @@
         <jasypt.version>3.0.5</jasypt.version>
         <elasticsearch.version>8.15.5</elasticsearch.version>
         <thymeleaf-extras.version>3.1.2.RELEASE</thymeleaf-extras.version>
+        <oracle.database.jdbc.version>23.5.0.24.07</oracle.database.jdbc.version>
     </properties>
 
     <repositories>
@@ -65,6 +66,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
@@ -101,6 +107,12 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.database.jdbc</groupId>
+                <artifactId>ojdbc11</artifactId>
+                <version>${oracle.database.jdbc.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.twitter4j</groupId>

@@ -6,13 +6,15 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.microservices.demo.elastic.query.service.common.Constants.NA;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class TwitterQueryUserJwtConverter implements Converter<Jwt, AbstractAuth
         return Optional.ofNullable(twitterQueryUserDetailsService.loadUserByUsername(jwt.getClaimAsString(USERNAME_CLAIM)))
                 .map(userDetails -> {
                     ((TwitterQueryUser) userDetails).setAuthorities(authoritiesFromJwt);
-                    return new JwtAuthenticationToken(jwt, authoritiesFromJwt);
+                    return new UsernamePasswordAuthenticationToken(userDetails, NA,authoritiesFromJwt);
                 })
                 .orElseThrow(() -> new BadCredentialsException("User could not be found!"));
     }

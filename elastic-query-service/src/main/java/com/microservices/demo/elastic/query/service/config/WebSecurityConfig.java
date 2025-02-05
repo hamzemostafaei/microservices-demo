@@ -1,5 +1,6 @@
 package com.microservices.demo.elastic.query.service.config;
 
+import com.microservices.demo.elastic.query.service.security.QueryServicePermissionEvaluator;
 import com.microservices.demo.elastic.query.service.security.TwitterQueryUserDetailsService;
 import com.microservices.demo.elastic.query.service.security.TwitterQueryUserJwtConverter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,9 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2Res
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.access.PermissionEvaluator;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -56,5 +60,12 @@ public class WebSecurityConfig {
         jwtDecoder.setJwtValidator(withAudience);
 
         return jwtDecoder;
+    }
+
+    @Bean
+    public MethodSecurityExpressionHandler methodSecurityExpressionHandler(QueryServicePermissionEvaluator permissionEvaluator) {
+        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+        expressionHandler.setPermissionEvaluator(permissionEvaluator); // Set your custom evaluator
+        return expressionHandler;
     }
 }

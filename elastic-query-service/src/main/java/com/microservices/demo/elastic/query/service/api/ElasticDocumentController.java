@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class ElasticDocumentController {
     private final IElasticQueryService elasticQueryService;
 
     @GetMapping
+    @PostAuthorize("hasPermission(returnObject,'READ')")
     public ResponseEntity<List<ElasticQueryServiceResponseModel>> getAllDocuments() {
         List<ElasticQueryServiceResponseModel> response = elasticQueryService.getAllDocuments();
         if (log.isInfoEnabled()) {
@@ -32,6 +34,7 @@ public class ElasticDocumentController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasPermission(#id,'ElasticQueryServiceResponseModel','READ')")
     public ResponseEntity<ElasticQueryServiceResponseModel> getDocumentById(@PathVariable @NotEmpty String id) {
         ElasticQueryServiceResponseModel elasticQueryServiceResponseModel = elasticQueryService.getDocumentById(id);
         if (log.isDebugEnabled()) {
@@ -42,6 +45,7 @@ public class ElasticDocumentController {
 
     @PostMapping("/get-document-by-text")
     @PreAuthorize("hasRole('APP_USER_ROLE') || hasAuthority('SCOPE_APP_USER_ROLE')")
+    @PostAuthorize("hasPermission(returnObject,'READ')")
     public ResponseEntity<List<ElasticQueryServiceResponseModel>> getDocumentByText(@RequestBody @Valid ElasticQueryServiceRequestModel elasticQueryServiceRequestModel) {
         List<ElasticQueryServiceResponseModel> response = elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText());
         if (log.isInfoEnabled()) {
