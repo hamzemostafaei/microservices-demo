@@ -6,6 +6,8 @@ import com.microservices.demo.elastic.query.web.client.service.IElasticQueryWebC
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,11 @@ public class QueryController {
     @GetMapping("/error")
     public String error() {
         return "error";
+    }
+
+    @GetMapping("favicon.ico")
+    public ResponseEntity<Void> returnNoFavicon() {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/home")

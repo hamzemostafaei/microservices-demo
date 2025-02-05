@@ -9,7 +9,7 @@ class JasyptConfigTest {
     @Test
     public void testJasyptConfig() {
         JasyptConfig jasyptConfig = new JasyptConfig();
-        String encrypted = jasyptConfig.stringEncryptor().encrypt("123456");
+        String encrypted = jasyptConfig.stringEncryptor().encrypt("4GerhMLaVrYKohOsYY8daZS2l0ORVbZh");
         log.info("[{}]", encrypted);
     }
 }
