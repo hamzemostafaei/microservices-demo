@@ -73,6 +73,7 @@ services:
       - ${GLOBAL_NETWORK:-services}
   elastic-query-web-client:
     image: ${GROUP_ID}/elastic.query.web.client:${SERVICE_VERSION:-latest}
+    container_name: elastic-query-web-client
     ports:
       - "5010:5010"
       - "8184:8184"
