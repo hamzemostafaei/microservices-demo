@@ -27,6 +27,7 @@
         <module>elastic/elastic-index-client</module>
         <module>elastic-query-service</module>
         <module>elastic-query-web-client</module>
+        <module>kafka-streams-service</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -47,6 +48,9 @@
         <elasticsearch.version>8.15.5</elasticsearch.version>
         <thymeleaf-extras.version>3.1.2.RELEASE</thymeleaf-extras.version>
         <oracle.database.jdbc.version>23.5.0.24.07</oracle.database.jdbc.version>
+        <kafka-streams.version>3.7.1</kafka-streams.version>
+        <kafka-clients.version>3.7.1</kafka-clients.version>
+        <kafka-streams-avro-serde.version>7.8.0</kafka-streams-avro-serde.version>
     </properties>
 
     <repositories>
@@ -156,6 +160,21 @@
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
                 <version>${spring-kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka-streams.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-clients.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-streams-avro-serde</artifactId>
+                <version>${kafka-streams-avro-serde.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.retry</groupId>
