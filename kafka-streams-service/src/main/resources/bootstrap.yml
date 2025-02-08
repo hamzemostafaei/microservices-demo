@@ -8,4 +8,7 @@ spring:
       name: kafka-streams-service,config-client
       uri: http://localhost:8888
       username: spring_cloud_user
-      password: ENC(y4PGtmPm1zbklPhSwuUVzAsNUewxAOHmzsdDEvaveFrLMZSMNGei+2uT39bHCDj2lt62h/LtOMdtlnMbzP3f9g==)
+      password: ENC(ZHALCmdhsAqjpRgzDmesDX88iM3b92mHcL9kpMgtTY1LBA/Q8rPjihMrqi2TET7Wkt74mXKE3Lc3Wr4w4y2MTQ==)
+jasypt:
+  encryptor:
+    bean: "propertiesEncryptor"

@@ -1,5 +1,6 @@
-version: '3.7'
+version: '3.8'
 networks:
-  microservices-demo:
+  development:
     driver: bridge
-    name: microservices-demo
+    name: development
+    external: true

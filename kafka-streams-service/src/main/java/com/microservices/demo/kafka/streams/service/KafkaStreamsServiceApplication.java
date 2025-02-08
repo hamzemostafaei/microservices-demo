@@ -1,7 +1,7 @@
 package com.microservices.demo.kafka.streams.service;
 
 import com.microservices.demo.kafka.streams.service.init.IStreamsInitializer;
-import com.microservices.demo.kafka.streams.service.runner.IStreamsRunner;
+import com.microservices.demo.kafka.streams.service.runner.StreamsRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,11 +17,11 @@ import org.springframework.context.annotation.ComponentScan;
 @ConfigurationPropertiesScan(basePackages = "com.microservices.demo")
 public class KafkaStreamsServiceApplication implements CommandLineRunner {
 
-    private final IStreamsRunner<String, Long> streamsRunner;
+    private final StreamsRunner<String, Long> streamsRunner;
 
     private final IStreamsInitializer streamsInitializer;
 
-    public KafkaStreamsServiceApplication(IStreamsRunner<String, Long> runner, IStreamsInitializer initializer) {
+    public KafkaStreamsServiceApplication(StreamsRunner<String, Long> runner, IStreamsInitializer initializer) {
         this.streamsRunner = runner;
         this.streamsInitializer = initializer;
     }

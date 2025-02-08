@@ -4,8 +4,6 @@ services:
     image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
     container_name: config-server
     user: root
-    depends_on:
-      - twitter-to-kafka-service
     ports:
       - "8888:8888"
     volumes:

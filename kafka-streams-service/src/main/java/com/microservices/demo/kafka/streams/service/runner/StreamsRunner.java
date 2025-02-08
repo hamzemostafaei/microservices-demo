@@ -1,6 +1,6 @@
 package com.microservices.demo.kafka.streams.service.runner;
 
-public interface IStreamsRunner<K, V> {
+public interface StreamsRunner<K, V> {
     void start();
 
     default V getValueByKey(K key) {

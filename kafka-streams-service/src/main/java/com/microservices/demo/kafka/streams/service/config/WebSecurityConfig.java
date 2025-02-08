@@ -47,16 +47,16 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    JwtDecoder jwtDecoder(@Qualifier("kafka-streams-service-audience-validator")
-                          OAuth2TokenValidator<Jwt> audienceValidator) {
-        NimbusJwtDecoder jwtDecoder = JwtDecoders.fromOidcIssuerLocation(
-                oAuth2ResourceServerProperties.getJwt().getIssuerUri());
-        OAuth2TokenValidator<Jwt> withIssuer =
-                JwtValidators.createDefaultWithIssuer(
-                        oAuth2ResourceServerProperties.getJwt().getIssuerUri());
-        OAuth2TokenValidator<Jwt> withAudience =
-                new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
+    JwtDecoder jwtDecoder(@Qualifier("kafka-streams-service-audience-validator") OAuth2TokenValidator<Jwt> audienceValidator) {
+
+        NimbusJwtDecoder jwtDecoder = JwtDecoders.fromOidcIssuerLocation(oAuth2ResourceServerProperties.getJwt().getIssuerUri());
+
+        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(oAuth2ResourceServerProperties.getJwt().getIssuerUri());
+
+        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
+
         jwtDecoder.setJwtValidator(withAudience);
+
         return jwtDecoder;
     }
 
