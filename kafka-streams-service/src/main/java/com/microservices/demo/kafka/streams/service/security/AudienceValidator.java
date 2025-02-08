@@ -22,8 +22,8 @@ public class AudienceValidator implements OAuth2TokenValidator<Jwt> {
             return OAuth2TokenValidatorResult.success();
         } else {
             OAuth2Error audienceError =
-                    new OAuth2Error("invalid_token", "The required audience " +
-                            kafkaStreamsServiceConfig.customAudience() + " is missing!",
+                    new OAuth2Error("invalid_token",
+                            String.format("The required audience [%s] is missing!", kafkaStreamsServiceConfig.customAudience()),
                             null);
             return OAuth2TokenValidatorResult.failure(audienceError);
         }

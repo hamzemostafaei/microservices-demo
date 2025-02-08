@@ -3,5 +3,10 @@
     <property name="DEV_HOME" value="./kafka-streams-service/logs"/>
     <property name="APP_NAME" value="kafka-streams-service"/>
 
+    <logger name="org.springframework.security" additivity="false">
+        <level value="TRACE"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
     <include resource="logback-common.xml"/>
 </configuration>

@@ -10,11 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.springframework.stereotype.Component;
 
@@ -62,8 +60,23 @@ public class KafkaStreamsRunner implements StreamsRunner<String, Long> {
     }
 
     @Override
-    public Long getValueByKey(String key) {
-        return StreamsRunner.super.getValueByKey(key);
+    public Long getValueByKey(String word) {
+        if (kafkaStreams != null && kafkaStreams.state() == KafkaStreams.State.RUNNING) {
+            if (keyValueStore == null) {
+                synchronized (this) {
+                    if (keyValueStore == null) {
+                        keyValueStore = kafkaStreams.store(
+                                StoreQueryParameters.fromNameAndType(
+                                        kafkaStreamsConfigData.wordCountStoreName(),
+                                        QueryableStoreTypes.keyValueStore()
+                                )
+                        );
+                    }
+                }
+            }
+            return keyValueStore.get(word.toLowerCase());
+        }
+        return 0L;
     }
 
     private void startStreaming(StreamsBuilder streamsBuilder) {
