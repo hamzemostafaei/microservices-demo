@@ -1,0 +1,1 @@
+docker build -t com.microservices.demo/kafka.streams.service:0.0.1-SNAPSHOT .
