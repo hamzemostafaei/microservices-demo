@@ -29,6 +29,7 @@
         <module>elastic-query-web-client</module>
         <module>kafka-streams-service</module>
         <module>discovery-service</module>
+        <module>gateway-service</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -45,6 +46,7 @@
         <kafka-avro-serializer.version>7.0.1</kafka-avro-serializer.version>
         <spring-cloud.version>4.1.2</spring-cloud.version>
         <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version>
+        <spring-cloud-starter-circuitbreaker-reactor-resilience4j.version>3.1.1</spring-cloud-starter-circuitbreaker-reactor-resilience4j.version>
         <jasypt.version>3.0.5</jasypt.version>
         <elasticsearch.version>8.15.5</elasticsearch.version>
         <thymeleaf-extras.version>3.1.2.RELEASE</thymeleaf-extras.version>
@@ -76,6 +78,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
@@ -225,6 +232,16 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
                 <version>${spring-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${spring-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+                <version>${spring-cloud-starter-circuitbreaker-reactor-resilience4j.version}</version>
             </dependency>
             <!--spring cloud -->
 
