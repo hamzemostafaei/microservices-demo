@@ -86,7 +86,7 @@ services:
       - "LOGGING_LEVEL_ROOT=info"
       - "SERVER_PORT=8184"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
-      - "ELASTIC-QUERY-WEB-CLIENT_WEB-CLIENT_BASE-URL=http://elastic-query-service:8183/documents"
+      - "ELASTIC-QUERY-WEB-CLIENT_WEB-CLIENT_BASE-URL=http://gateway-service/elastic-query-service/documents"
     networks:
       - ${GLOBAL_NETWORK:-services}
   discovery-service-1:
@@ -123,5 +123,24 @@ services:
       - "SPRING_PROFILES_ACTIVE=peer2"
       - "EUREKA_INSTANCE_HOSTNAME=discovery-service-2"
       - "EUREKA-CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-2:8762/eureka/,http://discovery-service-1:8761/eureka/"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
+  gateway-service:
+    image: ${GROUP_ID}/gateway.service:${SERVICE_VERSION:-latest}
+    container_name: gateway-service
+    hostname: gateway-service
+    user: root
+    ports:
+      - "5016:5016"
+      - "9090:9090"
+    volumes:
+      - ./docker-logs/gateway-service:/workspace/gateway-service/logs
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5016 -Xms128m -Xmx256m"
+      - "LOGGING_LEVEL_ROOT=debug"
+      - "SERVER_PORT=9090"
+      - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
+      - "SPRING_REDIS_HOST=host.docker.internal"
+      - "EUREKA_CLIENT_SERVICE-URL_DEFAULT-ZONE=http://discovery-service-2:8762/eureka/,http://discovery-service-1:8761/eureka/"
     networks:
       - ${GLOBAL_NETWORK:-services}
